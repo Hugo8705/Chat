@@ -13,6 +13,7 @@ var server = app.listen(7076);
 
 var io = require('socket.io').listen(server);
 
+var usernames = [];
 var connectCounter = 0;
 var clientId = 0;
 
@@ -24,9 +25,11 @@ io.sockets.on('connection', function (socket) {
         connectCounter++;
         clientId++;
         // on genere le pseudo par défaut
-        socket.pseudo = "user" + clientId;
+        socket._id = clientId;
+        socket.pseudo = "user" + socket._id;
+        usernames[socket._id] = socket.pseudo;
         // on envoit le tout 
-        io.sockets.emit('newConnexion', {compteur:connectCounter, pseudo:socket.pseudo});
+        io.sockets.emit('newConnexion', {compteur:connectCounter, pseudo:socket.pseudo, listeUtilisateurs: usernames});
 
         // un utilisateur change son pseudo
         socket.on('pseudoChanged', function(data){
@@ -45,7 +48,13 @@ io.sockets.on('connection', function (socket) {
         socket.on('disconnect', function(){
             // Decrementation compteur des connexions
             connectCounter--;
-            io.sockets.emit('endConnexion', {compteur:connectCounter, pseudo:socket.pseudo});
+            // Delete user from userlist
+            var i = usernames.indexOf(socket.pseudo);
+            if(i != -1) {
+                usernames.splice(i, 1);
+            }
+            console.log(usernames);
+            io.sockets.emit('endConnexion', {compteur:connectCounter, pseudo:socket.pseudo, listeUtilisateurs: usernames});
         });
 
 });

@@ -61,11 +61,22 @@ function aPseudoChanged() {
 function newConnexion() {
 		
 		socket.on('newConnexion', function(message) {
+				
 				$('#nbrConnexion').html("Nombre de personnes connectées : " + message.compteur);
+				
 				$('#spanPseudoClient').text(message.pseudo);
 				var contenu = "<p>" + message.pseudo + " s'est connecté.</p>";
 				$('#messages').append(contenu);
-				$('#listeUsers').append(message.listeUsers);
+				
+				var contenuListe;
+
+				$.each( message.listeUtilisateurs, function( i, val ) {
+					if(val !== null) {
+						contenuListe += "<p id='" + i + "'>" + val + "</p>";
+					}
+				});
+
+				$('#listeUsers').html(contenuListe);
 		})
 
 }
@@ -76,7 +87,16 @@ function endConnexion() {
 				$('#nbrConnexion').html("Nombre de personnes connectées : " + message.compteur);
 				var contenu = "<p>" + message.pseudo + " s'est déconnecté.</p>";
 				$('#messages').append(contenu);
-				$('#listeUsers').append(message.listeUsers);
+				
+				var contenuListe;
+
+				$.each( message.listeUtilisateurs, function( i, val ) {
+					if(val !== null) {
+					contenuListe += "<p id='" + i + "'>" + val + "</p>";
+					}
+				});
+
+				$('#listeUsers').html(contenuListe);
 		})
 
 }
@@ -103,9 +123,3 @@ function messageDisplay() {
 		})
 
 }
-
-function updateUserList() {
-
-
-
-};
