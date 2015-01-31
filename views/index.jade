@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+
+  span#status
+  span#nbrConnexion
+
+  div#messages
+
+  div#listeUsers
+
+  div.clear
+  
+  p
+    form
+      input#clientMessage(type='text')
+      input#envoyerMessage(type='submit', placeholder='Envoyer', value='Envoyer')
+  
+  p#pPseudoClient
+    | Votre pseudo : 
+    span#spanPseudoClient 
+
+  p
+    form
+      | Changer pseudo : 
+      input#inputClientPseudo(type='text')
+      input#changerPseudo(type='submit', placeholder='Ok', value='Ok')

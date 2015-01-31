@@ -1,0 +1,42 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#status, #nbrConnexion {
+	color:#777;
+	font-size:12px;
+	margin:5px;
+}
+
+#messages {
+	border:1px solid #777;
+	float:left;
+	width:80%;
+	height:450px;
+	padding:5px;
+	font-size: 13px;
+	overflow:scroll;
+}
+
+#listeUsers {
+	float:left;
+	color:#000;
+	font-size:12px;
+	padding:5px;
+	margin-left:15px;
+}
+
+.clear {
+	clear:both;
+	float:none;
+}
+
+#messages p {
+	margin-top:3px;
+	margin-bottom:3px;
+}
